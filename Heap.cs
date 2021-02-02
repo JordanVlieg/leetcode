@@ -2,77 +2,108 @@
 
 public class MinHeap
 {
-    private List<int?> Heap;
-    private int size;
+    private List<int?> heap;
 
     public MinHeap()
     {
-        Heap = new List<int?>();
-        Heap.Add(Int32.MaxValue);
+        this.heap = new List<int?>();
+    }
+
+    public MinHeap(int?[] arr)
+    {
+        this.heap = arr.ToList();
+        Heapify();
     }
 
     public int Peek()
     {
-        return (int)Heap[0];
+        if (heap.Count == 0)
+        {
+            throw new Exception("Heap is empty");
+        }
+        return (int)heap[0];
     }
 
-    public int Pop()
+    public bool IsTrueHeap()
     {
-        if (size == 0)
+        // Check that it satisfies the heap property, each element should be larger than or equal to than its parent element. 
+        int parent = 0;
+        for (int i = 0; i < heap.Count; i++)
+        {
+            parent = (i-1) / 2;
+            if (heap[i] < heap[parent])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void _Heapify(int i)
+    {
+
+        // Recursively heapify, top to bottom.  If an element doesnt satisfy the minheap property, swap it with the smaller of its two children and then heapify the subtree that was swapped with.
+        // O(n) time cause this is kruskals method, crazy math proof.  Basically each iteration is O(h), and most values of h are small.
+        int lChild = 2 * i + 1;
+        int rChild = 2 * i + 2;
+        int minIndex = i;
+        
+        if (lChild < heap.Count && heap[lChild] < heap[minIndex])
+        {
+            minIndex = lChild;
+        }
+        if (rChild < heap.Count && heap[rChild] < heap[minIndex])
+        {
+            minIndex = rChild;
+        }
+        if (minIndex != i)
+        {
+            int? temp = heap[i];
+            heap[i] = heap[minIndex];
+            heap[minIndex] = temp;
+            _Heapify(minIndex);
+        }
+    }
+
+    private void Heapify()
+    {
+        for (int i = (heap.Count - 1) / 2; i >= 0; i--)
+        {
+            _Heapify(i);
+        }
+        return;
+    }
+
+    public int? Dequeue()
+    {
+        if (heap.Count == 0)
         {
             throw new Exception();
         }
-        var value = Heap[0];
-        var index = 0;
-        Heap[0] = Heap[size - 1];
-        Heap[--size] = Int32.MaxValue;
-        var temp = value;
-        var leftIndex = 2 * index + 1;
-        var rightIndex = 2 * index + 2;
-        var leftChild = leftIndex < size ? Heap[leftIndex] : null;
-        var rightChild = rightIndex < size ? Heap[rightIndex] : null;
-        while (Heap[index] > rightChild || Heap[index] > leftChild)
-        {
-            temp = Heap[index];
-            if (rightChild > leftChild || rightChild == null)
-            {
-                Heap[index] = leftChild;
-                Heap[leftIndex] = temp;
-                index = leftIndex;
-            }
-            else
-            {
-                Heap[index] = rightChild;
-                Heap[rightIndex] = temp;
-                index = rightIndex;
-            }
-            leftIndex = 2 * index + 1;
-            rightIndex = 2 * index + 2;
-            leftChild = leftIndex < size ? Heap[leftIndex] : null;
-            rightChild = rightIndex < size ? Heap[rightIndex] : null;
-        }
-        return (int)value;
+        var value = heap[0];
+
+        heap[0] = heap[heap.Count - 1];
+        // O(1) for the last element.
+        heap.RemoveAt(heap.Count - 1);
+
+        _Heapify(0);
+
+        return value;
     }
 
-    public void Add(int value)
+    public void Enqueue(int value)
     {
-        if (Heap.Count <= size)
-        {
-            Heap.Add(value);
-            size++;
-        }
-        else
-        {
-            Heap[size++] = value;
-        }
-        var index = size - 1;
+        heap.Add(value);
+
+        // Add the element to the end of the heap, then bubble it up.
+        var index = heap.Count - 1;
         var parentIndex = (index - 1) / 2;
         int? temp = value;
-        while (parentIndex >= 0 && Heap[index] < Heap[parentIndex])
+        while (parentIndex >= 0 && heap[index] < heap[parentIndex])
         {
-            temp = Heap[index];
-            Heap[index] = Heap[parentIndex];
-            Heap[parentIndex] = temp;
+            temp = heap[index];
+            heap[index] = heap[parentIndex];
+            heap[parentIndex] = temp;
             index = parentIndex;
             parentIndex = (index - 1) / 2;
         }
@@ -80,7 +111,7 @@ public class MinHeap
 
     public bool IsEmpty()
     {
-        if (size <= 0)
+        if (heap.Count <= 0)
         {
             return true;
         }
