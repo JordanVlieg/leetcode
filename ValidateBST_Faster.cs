@@ -35,7 +35,7 @@ public class Solution
 
     public bool IsValidBST(TreeNode root)
     {
-        if(root == null)
+        if (root == null)
             return true;
         return Traverse(root);
     }

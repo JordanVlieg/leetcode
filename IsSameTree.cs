@@ -9,9 +9,9 @@
  *     public TreeNode(int x) { val = x; }
  * }
  */
-public class Solution 
+public class Solution
 {
-    public bool IsSameTree(TreeNode p, TreeNode q) 
+    public bool IsSameTree(TreeNode p, TreeNode q)
     {
         if (p == null || q == null)
         {

@@ -6,7 +6,7 @@ public class Solution
     {
         int count = 0;
         Node[][] nodes = new Node[grid.Length][];
-        for(int i = 0; i < grid.Length; i++)
+        for (int i = 0; i < grid.Length; i++)
         {
             nodes[i] = new Node[grid[i].Length];
             for (int j = 0; j < grid[i].Length; j++)

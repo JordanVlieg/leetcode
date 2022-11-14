@@ -6,16 +6,16 @@ public class KnapSack
     {
         int[,] Pack = new int[weight.Length + 1, capacity + 1];
 
-        for(int i = 0; i <= weight.Length; i++)
+        for (int i = 0; i <= weight.Length; i++)
         {
-            for(int c = 0; c <= capacity; c++)
+            for (int c = 0; c <= capacity; c++)
             {
                 int index = i - 1;
-                if(i == 0 || c == 0)
+                if (i == 0 || c == 0)
                 {
                     Pack[i, c] = 0;
                 }
-                else if(c < weight[index])
+                else if (c < weight[index])
                 {
                     Pack[i, c] = Pack[index, c]; // Item wouldnt fit in the empty pack at all.
                 }
@@ -33,18 +33,18 @@ public class KnapSack
 
     private int PackRecursiveHelper(int capacity, int[] weight, int[] cost, int n)
     {
-        if(MyPack[n, capacity] != null)
+        if (MyPack[n, capacity] != null)
         {
             return MyPack[n, capacity];
         }
         int r;
-        if(capacity == 0 || n == 0)
+        if (capacity == 0 || n == 0)
         {
             r = 0;
         }
-        else if(c < weight[index])
+        else if (c < weight[index])
         {
-            r = PackRecursiveHelper(capacity, weight, cost, n-1);
+            r = PackRecursiveHelper(capacity, weight, cost, n - 1);
         }
         else
         {
@@ -68,11 +68,11 @@ public class KnapSack
         PackRecursiveHelper(capacity, weight, cost, n);
         int c = capacity;
         var dex = new List<int>();
-        for(int i = n - 1; i >= 0; n--)
+        for (int i = n - 1; i >= 0; n--)
         {
-            if(capacity == 0)
+            if (capacity == 0)
                 break;
-            if(i == 0 || MyPack[i - 1, capacity] != MyPack[i, capacity])
+            if (i == 0 || MyPack[i - 1, capacity] != MyPack[i, capacity])
             {
                 dex.Add(index[i]);
                 capacity -= weight[i];

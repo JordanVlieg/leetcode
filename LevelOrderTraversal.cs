@@ -19,11 +19,11 @@ public class Solution
     }
     public void Traverse(TreeNode root, int level)
     {
-        if(root == null)
+        if (root == null)
         {
             return;
         }
-        if(level >= order.Count)
+        if (level >= order.Count)
         {
             order.Add(new List<int>());
         }

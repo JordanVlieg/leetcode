@@ -6,7 +6,7 @@ public class Solution
     {
         int[] bits = new int[num + 1];
         uint weight = 0;
-        for(; n != 0; n = n >> 1)
+        for (; n != 0; n = n >> 1)
         {
             weight += n & 1;
         }

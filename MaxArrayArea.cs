@@ -23,7 +23,7 @@ public class Solution
                 start++;
             }
         }
-        
+
         return maxArea;
     }
 }

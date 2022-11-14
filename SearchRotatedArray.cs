@@ -4,7 +4,7 @@ public class Solution
 {
     public int Search(int[] nums, int target)
     {
-        if(nums.Length == 0)
+        if (nums.Length == 0)
             return -1;
         int pivot = FindMin(nums);
         int start = 0;
@@ -13,7 +13,7 @@ public class Solution
 
         int i; // i represents the true index.
 
-        while(start <= end)
+        while (start <= end)
         {
             i = (x + pivot) % nums.Length;
             if (nums[i] == target)
@@ -39,7 +39,7 @@ public class Solution
         int start = 0;
         int end = nums.Length - 1;
         int x = ((start + end + 1) / 2) % nums.Length;
-        while(true)
+        while (true)
         {
             if (nums[(x + nums.Length - 1) % nums.Length] >= nums[x])
             {

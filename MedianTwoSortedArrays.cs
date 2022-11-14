@@ -1,6 +1,7 @@
 // https://leetcode.com/problems/median-of-two-sorted-arrays/
 
-public class Solution {
+public class Solution
+{
     public double FindMedianSortedArrays(int[] nums1, int[] nums2)
     {
         if (nums1.Length > nums2.Length)
@@ -18,7 +19,7 @@ public class Solution {
         var xRight = x >= nums1.Length ? Int64.MaxValue : nums1[x];
         var yRight = y >= nums2.Length ? Int64.MaxValue : nums2[y];
 
-        while(!(xRight >= yLeft && xLeft <= yRight))
+        while (!(xRight >= yLeft && xLeft <= yRight))
         {
             if (xRight < yLeft)
             {
@@ -39,7 +40,7 @@ public class Solution {
         }
         if ((nums1.Length + nums2.Length) % 2 == 0)
         {
-            return ((double)Math.Max(xLeft, yLeft) +  (double)Math.Min(xRight, yRight)) / 2;
+            return ((double)Math.Max(xLeft, yLeft) + (double)Math.Min(xRight, yRight)) / 2;
         }
         else
         {

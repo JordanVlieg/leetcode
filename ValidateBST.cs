@@ -15,12 +15,12 @@ public class Solution
 
     public void Traverse(TreeNode node)
     {
-        if(node.left != null)
+        if (node.left != null)
         {
             Traverse(node.left);
         }
         list.Add(node.val);
-        if(node.right != null)
+        if (node.right != null)
         {
             Traverse(node.right);
         }
@@ -28,13 +28,13 @@ public class Solution
 
     public bool IsValidBST(TreeNode root)
     {
-        if(root == null)
+        if (root == null)
             return true;
         Traverse(root);
         var prev = list[0];
-        for(int i = 1; i < list.Count; i++)
+        for (int i = 1; i < list.Count; i++)
         {
-            if(prev >= list[i])
+            if (prev >= list[i])
             {
                 return false;
             }

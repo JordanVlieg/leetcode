@@ -1,120 +1,175 @@
 // A working resizable min heap for me to use.  Pretty messy, gets the job done.
+using System;
+using System.Collections.Generic;
 
 public class MinHeap
 {
-    private List<int?> heap;
+    private List<int> Heap;
 
     public MinHeap()
     {
-        this.heap = new List<int?>();
-    }
-
-    public MinHeap(int?[] arr)
-    {
-        this.heap = arr.ToList();
-        Heapify();
+        Heap = new List<int>();
     }
 
     public int Peek()
     {
-        if (heap.Count == 0)
-        {
-            throw new Exception("Heap is empty");
-        }
-        return (int)heap[0];
+        return Heap.Count > 0 ? Heap[0] : Int32.MaxValue;
     }
 
-    public bool IsTrueHeap()
+    public int Pop()
     {
-        // Check that it satisfies the heap property, each element should be larger than or equal to than its parent element. 
-        int parent = 0;
-        for (int i = 0; i < heap.Count; i++)
+        int val = Peek();
+
+        Heap[0] = Heap[Heap.Count - 1];
+
+        int index = 0;
+        while (Heap[index] > Heap[LChildIndex(index)] || Heap[index] > Heap[RChildIndex(index)])
         {
-            parent = (i-1) / 2;
-            if (heap[i] < heap[parent])
+            if (Heap[LChildIndex(index)] < Heap[RChildIndex(index)])
             {
-                return false;
+                index = LChildIndex(index);
             }
+            else
+            {
+                index = RChildIndex(index);
+            }
+            int swap = Heap[index];
+            Heap[index] = Heap[ParentIndex(index)];
+            Heap[ParentIndex(index)] = swap;
         }
-        return true;
+
+        Heap.RemoveAt(Heap.Count - 1);
+        return val;
     }
 
-    private void _Heapify(int i)
+    public void Add(int value)
     {
-
-        // Recursively heapify, top to bottom.  If an element doesnt satisfy the minheap property, swap it with the smaller of its two children and then heapify the subtree that was swapped with.
-        // O(n) time cause this is kruskals method, crazy math proof.  Basically each iteration is O(h), and most values of h are small.
-        int lChild = 2 * i + 1;
-        int rChild = 2 * i + 2;
-        int minIndex = i;
-        
-        if (lChild < heap.Count && heap[lChild] < heap[minIndex])
+        Heap.Add(value);
+        int index = Heap.Count - 1;
+        while (Heap[ParentIndex(index)] > Heap[index])
         {
-            minIndex = lChild;
-        }
-        if (rChild < heap.Count && heap[rChild] < heap[minIndex])
-        {
-            minIndex = rChild;
-        }
-        if (minIndex != i)
-        {
-            int? temp = heap[i];
-            heap[i] = heap[minIndex];
-            heap[minIndex] = temp;
-            _Heapify(minIndex);
+            int swap = Heap[index];
+            Heap[index] = Heap[ParentIndex(index)];
+            Heap[ParentIndex(index)] = swap;
+            index = ParentIndex(index);
         }
     }
-
-    private void Heapify()
+    public bool IsEmpty()
     {
-        for (int i = (heap.Count - 1) / 2; i >= 0; i--)
-        {
-            _Heapify(i);
-        }
-        return;
+        return Heap.Count <= 0;
     }
 
-    public int? Dequeue()
+    private int ParentIndex(int index)
     {
-        if (heap.Count == 0)
-        {
-            throw new Exception();
-        }
-        var value = heap[0];
-
-        heap[0] = heap[heap.Count - 1];
-        // O(1) for the last element.
-        heap.RemoveAt(heap.Count - 1);
-
-        _Heapify(0);
-
-        return value;
+        return (index - 1) / 2;
     }
 
-    public void Enqueue(int value)
+    private int LChildIndex(int index)
     {
-        heap.Add(value);
+        int i = index * 2 + 1;
+        return i < Heap.Count ? i : Heap.Count - 1;
+    }
 
-        // Add the element to the end of the heap, then bubble it up.
-        var index = heap.Count - 1;
-        var parentIndex = (index - 1) / 2;
-        int? temp = value;
-        while (parentIndex >= 0 && heap[index] < heap[parentIndex])
+    private int RChildIndex(int index)
+    {
+        int i = index * 2 + 2;
+        return i < Heap.Count ? i : Heap.Count - 1;
+    }
+
+    public void Print()
+    {
+        for (int i = 0; i < Heap.Count; i++)
         {
-            temp = heap[index];
-            heap[index] = heap[parentIndex];
-            heap[parentIndex] = temp;
-            index = parentIndex;
-            parentIndex = (index - 1) / 2;
+            Console.Write(Heap[i] + " ");
+        }
+    }
+}
+
+public class MaxHeap
+{
+    public List<int> Heap;
+
+    public MaxHeap()
+    {
+        Heap = new List<int>();
+    }
+
+    public int Peek()
+    {
+        if (Heap.Count == 0)
+        {
+            return Int32.MinValue;
+        }
+        return Heap[0];
+    }
+
+    public int Pop()
+    {
+        int val = Peek();
+
+        Heap[0] = Heap[Heap.Count - 1];
+
+        int index = 0;
+        while (Heap[index] < Heap[LChildIndex(index)] || Heap[index] < Heap[RChildIndex(index)])
+        {
+            if (Heap[LChildIndex(index)] > Heap[RChildIndex(index)])
+            {
+                index = LChildIndex(index);
+            }
+            else
+            {
+                index = RChildIndex(index);
+            }
+            int swap = Heap[index];
+            Heap[index] = Heap[ParentIndex(index)];
+            Heap[ParentIndex(index)] = swap;
+        }
+
+        Heap.RemoveAt(Heap.Count - 1);
+        return val;
+    }
+
+    public void Add(int value)
+    {
+        Heap.Add(value);
+        int index = Heap.Count - 1;
+        while (Heap[ParentIndex(index)] < Heap[index])
+        {
+            int swap = Heap[index];
+            Heap[index] = Heap[ParentIndex(index)];
+            Heap[ParentIndex(index)] = swap;
+            index = ParentIndex(index);
         }
     }
 
     public bool IsEmpty()
     {
-        if (heap.Count <= 0)
-        {
-            return true;
-        }
-        return false;
+        return Heap.Count <= 0;
     }
+
+    private int ParentIndex(int index)
+    {
+        return (index - 1) / 2;
+    }
+
+    private int LChildIndex(int index)
+    {
+        int i = index * 2 + 1;
+        return i < Heap.Count ? i : Heap.Count - 1;
+    }
+
+    private int RChildIndex(int index)
+    {
+        int i = index * 2 + 2;
+        return i < Heap.Count ? i : Heap.Count - 1;
+    }
+
+    public void Print()
+    {
+        for (int i = 0; i < Heap.Count; i++)
+        {
+            Console.Write(Heap[i] + " ");
+        }
+    }
+
 }

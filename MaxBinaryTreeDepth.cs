@@ -9,7 +9,8 @@
  *     public TreeNode(int x) { val = x; }
  * }
  */
-public class Solution {
+public class Solution
+{
     public int MaxDepth(TreeNode root)
     {
         if (root == null)

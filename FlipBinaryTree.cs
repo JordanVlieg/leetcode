@@ -13,8 +13,8 @@ public class Solution
 {
     public TreeNode InvertTree(TreeNode root)
     {
-        if(root == null)
-        { 
+        if (root == null)
+        {
             return null;
         }
         var temp = root.left;

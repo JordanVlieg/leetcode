@@ -7,7 +7,7 @@ public class Solution
         int start = 0;
         int end = nums.Length - 1;
         int x = ((start + end + 1) / 2) % nums.Length;
-        while(true)
+        while (true)
         {
             if (nums[(x + nums.Length - 1) % nums.Length] >= nums[x])
             {

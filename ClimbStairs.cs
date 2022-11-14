@@ -4,7 +4,7 @@ public class Solution
 {
     public int ClimbStairs(int n)
     {
-        int[] ways = new int{1, 1, 0};
+        int[] ways = new int { 1, 1, 0 };
         for (int i = 0; i < n; i++)
         {
             ways[0] = ways[1] + ways[2];

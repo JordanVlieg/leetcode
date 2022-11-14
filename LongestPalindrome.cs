@@ -2,10 +2,10 @@ public class Solution
 {
     public string LongestPalindrome(string s)
     {
-        if(s.Length < 1)
+        if (s.Length < 1)
             return "";
         string longest = s[0].ToString();
-        for(int i = 0; i < s.Length - 1; i++)
+        for (int i = 0; i < s.Length - 1; i++)
         {
             var a = FindPalindrome(s, i, i);
             var b = FindPalindrome(s, i, i + 1);
@@ -19,7 +19,7 @@ public class Solution
 
     public string FindPalindrome(string s, int l, int r)
     {
-        while(l >= 0 && r < s.Length && s[l] == s[r])
+        while (l >= 0 && r < s.Length && s[l] == s[r])
         {
             l--;
             r++;

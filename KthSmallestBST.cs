@@ -20,11 +20,11 @@ public class Solution
         {
             Traverse(node.left, k);
         }
-        if(++count == k)
+        if (++count == k)
         {
             value = node.val;
         }
-        if(count >= k)
+        if (count >= k)
         {
             return;
         }

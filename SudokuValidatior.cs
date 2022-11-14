@@ -7,15 +7,15 @@ public class Solution
         HashSet<char> seen = new HashSet<char>();
 
         // Validate columns
-        for(int i = 0; i < 9; i++)
+        for (int i = 0; i < 9; i++)
         {
-            for(int j = 0; j < 9; j++)
+            for (int j = 0; j < 9; j++)
             {
-                if(seen.Contains(board[i][j]))
+                if (seen.Contains(board[i][j]))
                 {
                     return false;
                 }
-                else if(board[i][j] != '.')
+                else if (board[i][j] != '.')
                 {
                     seen.Add(board[i][j]);
                 }
@@ -23,15 +23,15 @@ public class Solution
             seen.Clear();
         }
         // Validate rows
-        for(int i = 0; i < 9; i++)
+        for (int i = 0; i < 9; i++)
         {
-            for(int j = 0; j < 9; j++)
+            for (int j = 0; j < 9; j++)
             {
-                if(seen.Contains(board[j][i]))
+                if (seen.Contains(board[j][i]))
                 {
                     return false;
                 }
-                else if(board[j][i] != '.')
+                else if (board[j][i] != '.')
                 {
                     seen.Add(board[j][i]);
                 }
@@ -39,20 +39,20 @@ public class Solution
             seen.Clear();
         }
         // Validate Squares
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
-            for(int j = 0; j < 3; j++)
+            for (int j = 0; j < 3; j++)
             {
-                for(int x = 0; x < 3; x++)
+                for (int x = 0; x < 3; x++)
                 {
-                    for(int y = 0; y < 3; y++)
+                    for (int y = 0; y < 3; y++)
                     {
                         var c = board[(i * 3) + x][(j * 3) + y];
-                        if(seen.Contains(c))
+                        if (seen.Contains(c))
                         {
                             return false;
                         }
-                        else if(c != '.')
+                        else if (c != '.')
                         {
                             seen.Add(board[(i * 3) + x][(j * 3) + y]);
                         }

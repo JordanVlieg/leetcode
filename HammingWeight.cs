@@ -5,7 +5,7 @@ public class Solution
     public int HammingWeight(uint n)
     {
         uint weight = 0;
-        for(; n != 0; n = n >> 1)
+        for (; n != 0; n = n >> 1)
         {
             weight += n & 1;
         }

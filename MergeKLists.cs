@@ -18,20 +18,20 @@ public class Solution
     {
         MinHeap pQ = new MinHeap();
         ListNode myNode;
-        for(int i = 0; i < lists.Length; i++)
+        for (int i = 0; i < lists.Length; i++)
         {
             myNode = lists[i];
-            while(myNode != null)
+            while (myNode != null)
             {
                 pQ.Add(myNode.val);
                 myNode = myNode.next;
             }
         }
-        if(pQ.IsEmpty())
+        if (pQ.IsEmpty())
             return null;
         ListNode head = new ListNode(pQ.Pop());
         myNode = head;
-        while(!pQ.IsEmpty())
+        while (!pQ.IsEmpty())
         {
             myNode.next = new ListNode(pQ.Pop());
             myNode = myNode.next;
@@ -40,12 +40,12 @@ public class Solution
     }
 }
 
-public class MinHeap
+public class MinHeap2
 {
     private List<int?> Heap;
     private int size;
 
-    public MinHeap()
+    public MinHeap2()
     {
         Heap = new List<int?>();
         Heap.Add(Int32.MaxValue);
